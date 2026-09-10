@@ -1,0 +1,6 @@
+# SHA-256 of the upstream Beszel agent release tarballs this add-on installs.
+# Taken from beszel_<version>_checksums.txt in the upstream GitHub release and
+# verified locally before being committed. Update both lines whenever
+# beszel_version changes; the build fails closed if a digest does not match.
+amd64 0f85891b290146b336f5c813d1e535e992da35ee79de876e920e2ec748ab732c
+arm64 3a0b0c471506a02d8de79d03f7a45132b54010adc105c6208ffe8b8aedc1da38

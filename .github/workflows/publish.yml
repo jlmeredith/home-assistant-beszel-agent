@@ -1,16 +1,18 @@
 name: Build and Publish
 
 on:
-  # Check for new releases every 8 hours
-  schedule:
-    - cron: '0 */8 * * *'
+  # Upstream auto-tracking is deliberately disabled in this fork. The upstream
+  # repo polls henrygd/beszel every 8 hours and auto-publishes a new image with
+  # no human review, which would let the agent drift away from the pinned hub
+  # version. Bump beszel_version and beszel_sha256 by hand, then dispatch this
+  # workflow.
   # Allow manual trigger with image type selection
   workflow_dispatch:
     inputs:
       image_type:
         description: 'Image type to build'
         required: true
-        default: 'all'
+        default: 'stable'
         type: choice
         options:
           - all
@@ -335,7 +337,7 @@ jobs:
           port=18090
           while IFS=$'\t' read -r id dir suffix platforms base test_kind; do
             [ -n "${id}" ] || continue
-            IMAGE="ghcr.io/vineetchoudhary/${suffix}"
+            IMAGE="ghcr.io/jlmeredith/${suffix}"
             echo "::group::Build and test ${id} (${dir})"
 
             # First platform in the row. A manifest list cannot be --load'ed, so the
@@ -441,7 +443,7 @@ jobs:
           # reference a single image name with no {arch} placeholder.
           while IFS=$'\t' read -r id dir suffix platforms base test_kind; do
             [ -n "${id}" ] || continue
-            IMAGE="ghcr.io/vineetchoudhary/${suffix}"
+            IMAGE="ghcr.io/jlmeredith/${suffix}"
             echo "::group::Publish ${id} (${platforms})"
             /tmp/build-app-image.sh "${IMAGE}" "${dir}" "${VERSION}" "${platforms}" "${base}" "true" "push"
             echo "::endgroup::"

@@ -1,5 +1,5 @@
 {
-  "name": "Beszel",
-  "url": "https://github.com/vineetchoudhary/home-assistant-beszel-agent",
-  "maintainer": "Vineet Choudhary"
+  "name": "Beszel (jlmeredith fork)",
+  "url": "https://github.com/jlmeredith/home-assistant-beszel-agent",
+  "maintainer": "Jamie Meredith"
 }

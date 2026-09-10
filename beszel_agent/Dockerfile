@@ -7,6 +7,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Copy configuration and run script
 COPY config.yaml /tmp/config.yaml
 COPY beszel_version /tmp/beszel_version
+COPY beszel_sha256 /tmp/beszel_sha256
 COPY run.sh /
 COPY healthcheck-http.sh /
 
@@ -45,6 +46,17 @@ RUN set -euo pipefail && \
         fi; \
     done && \
     \
+    # Verify the download against the digest pinned in beszel_sha256 before
+    # unpacking anything. Upstream ships checksums; this build previously
+    # trusted TLS alone. Fails closed if the digest is missing or wrong.
+    EXPECTED_SHA=$(awk -v a="${BESZEL_ARCH}" '$1 == a {print $2}' /tmp/beszel_sha256) && \
+    if [ -z "${EXPECTED_SHA}" ]; then \
+        echo "[ERROR] No pinned SHA-256 for architecture ${BESZEL_ARCH} in beszel_sha256" && exit 1; \
+    fi && \
+    echo "${EXPECTED_SHA}  /tmp/beszel-agent.tar.gz" | sha256sum -c - || \
+        { echo "[ERROR] Checksum mismatch for beszel-agent_linux_${BESZEL_ARCH}.tar.gz" && exit 1; } && \
+    echo "[INFO] Checksum verified for ${BESZEL_ARCH}" && \
+    \
     # Extract and install
     tar -xzf /tmp/beszel-agent.tar.gz -C /tmp && \
     if [ ! -f /tmp/beszel-agent ]; then \
@@ -54,7 +66,7 @@ RUN set -euo pipefail && \
     chmod +x /usr/local/bin/agent /run.sh /healthcheck-http.sh && \
     \
     # Cleanup
-    rm -rf /tmp/beszel-agent* /tmp/config.yaml /tmp/beszel_version && \
+    rm -rf /tmp/beszel-agent* /tmp/config.yaml /tmp/beszel_version /tmp/beszel_sha256 && \
     echo "[INFO] Beszel Agent installed successfully"
 
 # Run the agent
