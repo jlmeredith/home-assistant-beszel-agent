@@ -2,5 +2,5 @@
 # Taken from beszel_<version>_checksums.txt in the upstream GitHub release and
 # verified locally before being committed. Update both lines whenever
 # beszel_version changes; the build fails closed if a digest does not match.
-amd64 0f85891b290146b336f5c813d1e535e992da35ee79de876e920e2ec748ab732c
-arm64 3a0b0c471506a02d8de79d03f7a45132b54010adc105c6208ffe8b8aedc1da38
+amd64 898d67d456a4feed7d651bbac22def5eb41840d4f3d9bf058a5ed37c8c815599
+arm64 82804205a370a790679e836c3c3d658bc804205517e1c3f676dba9fad064ade5

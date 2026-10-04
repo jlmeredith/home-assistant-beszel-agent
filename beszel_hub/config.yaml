@@ -1,6 +1,6 @@
 name: "Beszel Hub"
 description: "Beszel Hub Add-on"
-version: "0.19.0.1"
+version: "0.21.0"
 slug: "beszel-hub"
 url: "https://github.com/vineetchoudhary/home-assistant-beszel-agent"
 init: false
@@ -26,6 +26,7 @@ options:
   environment_vars: []
 schema:
   app_url: str?
+  ingress_user: email?
   environment_vars:
     - name: str
       value: str

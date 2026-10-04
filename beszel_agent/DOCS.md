@@ -15,6 +15,10 @@ This app uses two internal ports:
 - `45876/tcp` for the Beszel agent
 - `45877/tcp` for a lightweight HTTP watchdog endpoint
 
+## Connecting to a Hub with a self-signed certificate
+
+This fork does not mount Home Assistant's `/ssl` folder (it can hold Home Assistant's own TLS private keys, and the homelab hub is plain HTTP on the LAN), so `CA_CERT_FILE` is not available here. Use a plain-HTTP or publicly trusted `hub_url`.
+
 ## Installation and Setup
 
 Follow the [Installation and Setup Guide](https://github.com/vineetchoudhary/home-assistant-beszel-agent/blob/main/docs/INSTALLATION.md) to install the app.
