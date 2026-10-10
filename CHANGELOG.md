@@ -7,3 +7,7 @@ All notable changes to home-assistant-beszel-agent are recorded here, newest fir
 ### Added
 
 - This changelog (2026-10-04).
+
+### Changed
+
+- Filled the PRD, plan and WBS from the README, docs and git history, and replaced the template rows with one row per plan phase plus the fix and review rows (2026-10-10).
